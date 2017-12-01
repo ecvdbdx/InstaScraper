@@ -1,11 +1,12 @@
 from bs4 import BeautifulSoup
-import requests
+import selenium.webdriver as webdriver
 
-r = requests.get("https://www.instagram.com/explore/tags/plage/")
-data = r.text
+url = "https://www.instagram.com/explore/tags/plage/"
 
-soup = BeautifulSoup(data, 'lxml')
+driver = webdriver.PhantomJS()
+driver.get(url)
 
-if soup:
-    for link in soup.find_all('img'):
-        print(link.get('src'))
+soup = BeautifulSoup(driver.page_source, 'html.parser')
+
+for x in soup.findAll('section'):
+    print(x)
